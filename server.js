@@ -60,6 +60,19 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: { user: EMAIL_USER, pass: EMAIL_PASS },
 });
+// 🔧 Test email sending on server startup
+transporter.sendMail({
+  from: EMAIL_USER,
+  to: EMAIL_USER, // or use your personal email to receive the test
+  subject: 'Test Email from Nodemailer',
+  text: 'This confirms your Gmail app password is working.',
+}, (err, info) => {
+  if (err) {
+    console.error('❌ SendMail Error:', err);
+  } else {
+    console.log('✅ Email sent:', info.response);
+  }
+});
 
 // Generate OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
