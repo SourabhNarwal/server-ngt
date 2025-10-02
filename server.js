@@ -68,9 +68,9 @@ transporter.sendMail({
   text: 'This confirms your Gmail app password is working.',
 }, (err, info) => {
   if (err) {
-    console.error('❌ SendMail Error:', err);
+    console.error(' SendMail Error:', err);
   } else {
-    console.log('✅ Email sent:', info.response);
+    console.log(' Email sent:', info.response);
   }
 });
 
