@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid');
 const cookieParser = require('cookie-parser');
 const WebSocket = require('ws');
 const { v4: uuidv4 } = require('uuid');
@@ -56,10 +57,13 @@ mongoose.connect(MONGO_URI)
   });
 
 // Nodemailer Transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: { user: EMAIL_USER, pass: EMAIL_PASS },
-});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: { user: EMAIL_USER, pass: EMAIL_PASS },
+// });
+const transporter = nodemailer.createTransport(
+  sgTransport({ apiKey: process.env.SENDGRID_API_KEY })
+);
 // 🔧 Test email sending on server startup
 transporter.sendMail({
   from: EMAIL_USER,
